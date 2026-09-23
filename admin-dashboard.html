@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — GlobeTrek</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Globe<span>Trek</span> <span style="font-size:.7rem; color:rgba(255,255,255,.5); font-weight:400; margin-left:6px;">ADMIN</span></a>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span id="admin-name" style="font-size:.86rem; color:rgba(255,255,255,.7);"></span>
+        <button class="btn btn-ghost btn-sm" id="admin-logout">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="container">
+      <h2 style="color:#fff; margin-bottom:8px;">GlobeTrek Admin Dashboard</h2>
+      <p style="color:rgba(255,255,255,.6); margin-bottom:36px;">Overview of bookings, travelers and revenue.</p>
+
+      <div class="admin-stats">
+        <div class="stat-card"><div class="n" data-count="0" id="stat-total">0</div><div class="l">Total Bookings</div></div>
+        <div class="stat-card"><div class="n" data-count="0" id="stat-pending">0</div><div class="l">Pending</div></div>
+        <div class="stat-card"><div class="n" data-count="0" id="stat-approved">0</div><div class="l">Approved</div></div>
+        <div class="stat-card"><div class="n" data-count="0" id="stat-rejected">0</div><div class="l">Rejected</div></div>
+        <div class="stat-card"><div class="n" data-count="0" id="stat-travelers">0</div><div class="l">Total Travelers</div></div>
+        <div class="stat-card"><div class="n" data-count="0" id="stat-revenue">0</div><div class="l">Revenue (Approved)</div></div>
+      </div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-head">
+          <h3 style="color:#fff;">Booking Management</h3>
+          <div style="display:flex; gap:10px;">
+            <select id="status-filter" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:#fff; padding:10px 14px; width:auto;">
+              <option value="all">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Booking ID</th><th>Traveler</th><th>Email</th><th>Tour</th><th>Travel Date</th>
+                <th>Travelers</th><th>Price/Person</th><th>Total</th><th>Booked On</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-head">
+          <h3 style="color:#fff;">Tour Management</h3>
+          <button class="btn btn-primary btn-sm" id="add-tour-btn">+ Add Tour</button>
+        </div>
+        <div id="tours-mgmt-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Detail Modal -->
+<div class="modal-backdrop" id="detail-modal">
+  <div class="admin-modal-body" id="detail-body"></div>
+</div>
+
+<!-- Reject Reason Modal -->
+<div class="modal-backdrop" id="reject-modal">
+  <div class="admin-modal-body" style="max-width:460px;">
+    <h3 style="color:#fff; margin-bottom:16px;">Reject Booking</h3>
+    <p style="color:rgba(255,255,255,.65); margin-bottom:16px;">Please confirm rejection. You may optionally provide a reason for the traveler.</p>
+    <div class="form-group">
+      <label style="color:#fff;">Reason for rejection (optional)</label>
+      <textarea id="reject-reason" class="form-control" rows="3" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" placeholder="e.g. Tour fully booked for selected date"></textarea>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:10px;">
+      <button class="btn btn-ghost" id="reject-cancel" style="flex:1;">Cancel</button>
+      <button class="btn btn-danger" id="reject-confirm" style="flex:1;">Reject Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tour Editor Modal -->
+<div class="modal-backdrop" id="tour-modal">
+  <div class="admin-modal-body" style="max-width:600px; max-height:88vh; overflow:auto;">
+    <h3 style="color:#fff; margin-bottom:20px;" id="tour-modal-title">Add Tour</h3>
+    <form id="tour-form">
+      <input type="hidden" id="tf-id">
+      <div class="form-row">
+        <div class="form-group"><label style="color:#fff;">Tour Name</label><input id="tf-name" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></div>
+        <div class="form-group"><label style="color:#fff;">Destination</label><input id="tf-destination" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></div>
+      </div>
+      <div class="form-group"><label style="color:#fff;">Location</label><input id="tf-location" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></div>
+      <div class="form-row">
+        <div class="form-group"><label style="color:#fff;">Duration</label><input id="tf-duration" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" placeholder="3 Days / 2 Nights" required></div>
+        <div class="form-group"><label style="color:#fff;">Price Per Person (USD)</label><input id="tf-price" type="number" min="1" step="1" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></div>
+      </div>
+      <div class="form-group"><label style="color:#fff;">Description</label><textarea id="tf-desc" rows="3" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></textarea></div>
+      <div class="form-group"><label style="color:#fff;">Image URL</label><input id="tf-img" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" required></div>
+      <div class="form-group"><label style="color:#fff;">Available Dates (comma separated)</label><input id="tf-dates" class="form-control" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;" placeholder="12 Sep 2026, 26 Sep 2026"></div>
+      <div style="display:flex; gap:12px; margin-top:10px;">
+        <button type="button" class="btn btn-ghost" id="tour-cancel" style="flex:1;">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="flex:1;">Save Tour</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

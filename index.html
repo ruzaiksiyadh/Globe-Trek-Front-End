@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobeTrek — Explore Beyond Boundaries</title>
+  <meta name="description"
+    content="GlobeTrek is a premium travel and tour booking platform. Discover destinations, book unforgettable adventures, and travel with trust.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://unsplash.com">
+</head>
+
+<body>
+
+  <div id="app-navbar" data-home="index.html"></div>
+
+  <main>
+
+  
+    <section class="hero" id="home">
+     
+      <video class="hero-media" autoplay muted loop playsinline poster="images/misc/hero-poster.jpg">
+        
+      </video>
+      <img class="hero-media" style="position:absolute; inset:0;" alt="" src="images/misc/hero-poster.jpg">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="eyebrow">Premium travel &amp; tour booking</div>
+        <h1>Explore Beyond<br>Boundaries</h1>
+        <p>Discover unforgettable destinations, extraordinary experiences, and adventures that take you further.</p>
+        <div class="hero-btns">
+          <a href="#tours" class="btn btn-primary">Explore Tours</a>
+          <a href="register.html" class="btn btn-ghost">Start Your Journey</a>
+        </div>
+      </div>
+      <div class="scroll-indicator"><span>Scroll</span>
+        <div class="dot-track"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-white" id="destinations">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" style="justify-content:center;">Where to next</div>
+          <h2>Discover Your Next <span class="accent">Destination</span></h2>
+          <p>From misty mountains to golden shorelines — handpicked places worth the journey.</p>
+        </div>
+        <div class="grid grid-3 stagger" id="destinations-grid"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-gradient" id="experiences">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" style="justify-content:center;">Why travel with us</div>
+          <h2>Why Travelers Choose <span class="accent">GlobeTrek</span></h2>
+          <p>Every detail designed around one goal — a booking experience as good as the trip itself.</p>
+        </div>
+        <div class="grid grid-3 stagger" id="why-grid"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-navy" id="tours">
+      <div class="container" style="position:relative;">
+        <div class="section-head reveal on-dark">
+          <div class="eyebrow" style="justify-content:center;">Handpicked itineraries</div>
+          <h2>Featured <span class="accent">Adventures</span></h2>
+          <p>Every tour price is calculated live from our catalog — no surprises at checkout.</p>
+        </div>
+        <div class="grid grid-3 stagger" id="tours-grid"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-white" id="about">
+      <div class="container">
+        <div class="about-hero-grid">
+          <div class="reveal" style="position:relative;">
+            <img src="images/misc/about-main.jpg" alt="Traveler overlooking misty mountains"
+              style="border-radius:28px; box-shadow:0 30px 60px -20px rgba(14,42,82,.35);">
+            <!-- ABOUT US IMAGE HERE -->
+            <div class="glass" style="position:absolute; bottom:-24px; left:-24px; padding:20px 26px;">
+              <div style="font-family:var(--font-display); font-size:1.5rem; font-weight:800; color:#2196f3;">
+                10+ Years
+              </div>
+              <div style="font-size:.82rem; color:#101b2e;">Creating unforgettable journeys</div>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="eyebrow">About GlobeTrek</div>
+            <h2 style="margin-bottom:20px;">We Don't Just Plan Trips.<br>We Create <span class="accent">Memories.</span>
+            </h2>
+            <p>GlobeTrek helps travelers discover destinations, experiences and adventures across Sri Lanka's most
+              breathtaking corners — while keeping the booking process refreshingly simple. <strong
+                style="color:var(--blue-600);">Explore more. Experience more. Remember more.</strong></p>
+            <a href="#story" class="btn btn-outline mt-24">Discover Our Story →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="section section-navy" id="story">
+      <div class="container">
+        <div class="section-head reveal on-dark">
+          <div class="eyebrow" style="justify-content:center;">Our story</div>
+          <h2>From an Idea to an <span class="accent">Adventure</span></h2>
+        </div>
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-year">2022</div>
+            <h4>The Beginning</h4>
+            <p style="color:rgba(255,255,255,.75);">GlobeTrek began with a simple idea — making unforgettable travel
+              experiences easier to discover.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <h4>Growing the Journey</h4>
+            <p style="color:rgba(255,255,255,.75);">More destinations, experiences and travelers joined the GlobeTrek
+              journey.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2026</div>
+            <h4>GlobeTrek Today</h4>
+            <p style="color:rgba(255,255,255,.75);">A modern travel platform connecting travelers with incredible
+              adventures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="section section-ice">
+      <div class="container">
+        <div class="text-center reveal" style="max-width:680px; margin:0 auto 70px;">
+          <div class="eyebrow" style="justify-content:center;">Our mission</div>
+          <h2>To make extraordinary travel experiences <span class="accent">accessible, inspiring</span> and easy to
+            book.</h2>
+        </div>
+        <div class="grid grid-4 stagger">
+          <div class="value-card reveal" style="--i:0">
+            <div class="value-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" />
+              </svg></div>
+            <h3>Explore Without Limits</h3>
+            <p style="font-size:.9rem;">Discover new destinations and experiences beyond the ordinary.</p>
+          </div>
+          <div class="value-card reveal" style="--i:1">
+            <div class="value-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 3l1.9 4.9L19 9l-4.9 1.9L12 16l-2.1-5.1L5 9l5.1-1.1L12 3z" />
+              </svg></div>
+            <h3>Create Memories</h3>
+            <p style="font-size:.9rem;">Every journey should become a story worth remembering.</p>
+          </div>
+          <div class="value-card reveal" style="--i:2">
+            <div class="value-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
+              </svg></div>
+            <h3>Travel With Trust</h3>
+            <p style="font-size:.9rem;">We focus on reliable experiences and a transparent booking journey.</p>
+          </div>
+          <div class="value-card reveal" style="--i:3">
+            <div class="value-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2 0 3.5 1 4 2 .5-1 2-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z" />
+              </svg></div>
+            <h3>Travel With Passion</h3>
+            <p style="font-size:.9rem;">We believe travel is about feeling, discovering and experiencing something new.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="section section-cta">
+      <div class="container">
+        <div class="stats-row">
+          <div class="reveal">
+            <div class="stat-num"><span data-count="50" data-suffix="+">0</span></div>
+            <div class="stat-label">Destinations</div>
+          </div>
+          <div class="reveal">
+            <div class="stat-num"><span data-count="100" data-suffix="+">0</span></div>
+            <div class="stat-label">Experiences</div>
+          </div>
+          <div class="reveal">
+            <div class="stat-num"><span data-count="1000" data-suffix="+">0</span></div>
+            <div class="stat-label">Happy Travelers</div>
+          </div>
+          <div class="reveal">
+            <div class="stat-num"><span data-count="4.9" data-decimals="1">0</span>/5</div>
+            <div class="stat-label">Traveler Rating</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="section section-ice">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" style="justify-content:center;">Traveler stories</div>
+          <h2>Loved by <span class="accent">Adventurers</span></h2>
+        </div>
+        <div class="grid grid-3 stagger" id="testimonials-grid"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-cta" id="contact">
+      <div class="container">
+        <div class="cta-grid">
+          <div class="reveal on-dark">
+            <div class="eyebrow">Your next story is waiting</div>
+            <h2 style="margin-bottom:18px;">Pack your curiosity.<br>Choose your destination.</h2>
+            <p style="max-width:440px;">Let GlobeTrek take you there. Reach out and our travel team will help you plan
+              the perfect adventure.</p>
+            <div class="hero-btns" style="justify-content:flex-start; margin-top:30px;">
+              <a href="#tours" class="btn btn-primary">Explore Tours</a>
+              <a href="register.html" class="btn btn-ghost">Start Your Journey</a>
+            </div>
+          </div>
+          <form class="glass reveal" id="contact-form" style="padding:34px;">
+            <div class="form-group">
+              <label style="color:#fff;">Name</label>
+              <input class="form-control"
+                style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;"
+                placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label style="color:#fff;">Email</label>
+              <input type="email" class="form-control"
+                style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff;"
+                placeholder="you@email.com" required>
+            </div>
+            <div class="form-group">
+              <label style="color:#fff;">Message</label>
+              <textarea class="form-control" rows="3"
+                style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); color:#fff; resize:vertical;"
+                placeholder="Tell us about your dream trip"></textarea>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="app-footer" data-home="index.html"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/booking.js"></script>
+  <script>
+    function iconSvg(name) {
+      const icons = {
+        compass: '<circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6 6-2z"/>',
+        globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
+        shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>',
+        bolt: '<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>',
+        heart: '<path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2 0 3.5 1 4 2 .5-1 2-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/>',
+        star: '<path d="M12 3l1.9 4.9L19 9l-4.9 1.9L12 16l-2.1-5.1L5 9l5.1-1.1L12 3z"/>'
+      };
+      return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
+    }
+
+    function renderDestinations() {
+      const grid = document.getElementById('destinations-grid');
+      const dests = getDestinations();
+      grid.innerHTML = dests.map((d, i) => `
+    <a href="#tours" class="dest-card reveal" style="--i:${i}">
+      <img src="${d.img}" alt="${d.name}, Sri Lanka"> <!-- DESTINATION IMAGE HERE -->
+      <div class="dest-overlay">
+        <div class="dest-loc">📍 Sri Lanka</div>
+        <h3>${d.name}</h3>
+        <p>${d.desc}</p>
+        <div class="dest-arrow">→</div>
+      </div>
+    </a>`).join('');
+    }
+
+    function renderWhy() {
+      const items = [
+        { icon: 'compass', title: 'Carefully Selected Adventures', text: 'Discover experiences selected for memorable journeys.' },
+        { icon: 'globe', title: 'Incredible Destinations', text: 'Explore beautiful destinations and hidden gems.' },
+        { icon: 'shield', title: 'Secure Booking', text: 'A safe and reliable booking experience.' },
+        { icon: 'bolt', title: 'Simple & Easy', text: 'Find, choose and book your adventure with minimal effort.' },
+        { icon: 'heart', title: 'Traveler Focused', text: 'Designed around what travelers actually need.' },
+        { icon: 'star', title: 'Quality Experiences', text: 'We focus on creating experiences worth remembering.' }
+      ];
+      document.getElementById('why-grid').innerHTML = items.map((it, i) => `
+    <div class="value-card reveal" style="--i:${i}">
+      <div class="value-icon ${it.icon === 'compass' ? 'spin-slow' : ''}">${iconSvg(it.icon)}</div>
+      <h3>${it.title}</h3>
+      <p style="font-size:.9rem;">${it.text}</p>
+    </div>`).join('');
+    }
+
+    async function renderTours() {
+      const tours = await getTours();
+      if (!tours.length) {
+        document.getElementById('tours-grid').innerHTML = `
+      <div class="text-center" style="grid-column:1/-1; color:rgba(255,255,255,.7); padding:40px;">
+        Couldn't load tours — make sure the GlobeTrek backend is running at ${window.GLOBETREK_API_BASE || 'http://localhost:4000'}.
+      </div>`;
+        return;
+      }
+      document.getElementById('tours-grid').innerHTML = tours.map((t, i) => `
+    <div class="tour-card reveal" style="--i:${i}">
+      <div class="tour-media">
+        <img src="${t.img}" alt="${t.name}"> <!-- TOUR IMAGE HERE -->
+        <div class="tour-price-tag">From <b>${fmtMoney(t.price)}</b></div>
+      </div>
+      <div class="tour-body">
+        <div class="tour-loc">📍 ${t.location}</div>
+        <h3>${t.name}</h3>
+        <div class="tour-meta">
+          <span>🕒 ${t.duration}</span>
+          <span class="tour-rating">★ ${t.rating}</span>
+        </div>
+        <div class="tour-actions">
+          <a href="tour-details.html?id=${t.id}" class="btn btn-ghost">View Details</a>
+          <button class="btn btn-primary" onclick="openBookingModal('${t.id}')">Book Now</button>
+        </div>
+      </div>
+    </div>`).join('');
+    }
+
+    function renderTestimonials() {
+      const list = [
+        { name: 'Amara P.', trip: 'Ella Adventure', text: 'One of the most scenic trips of my life. Everything was seamless from booking to boarding.' },
+        { name: 'Elena M.', trip: 'Mirissa Beach Escape', text: 'We saw two blue whales and the beach was postcard perfect. GlobeTrek nailed every detail.' },
+        { name: 'Marcus B.', trip: 'Nuwara Eliya Tea Trails', text: "World's End at sunrise was unreal — booking and approval only took a day." }
+      ];
+      document.getElementById('testimonials-grid').innerHTML = list.map((r, i) => `
+    <div class="glass reveal" style="--i:${i}; padding:30px; background:#fff; border:1px solid #e4eef8;">
+      <div style="color:#ffc857; margin-bottom:14px;">★★★★★</div>
+      <p style="font-style:italic; color:#334; margin-bottom:18px;">"${r.text}"</p>
+      <div style="font-weight:700;">${r.name}</div>
+      <div style="font-size:.8rem; color:#5a6a85;">${r.trip}</div>
+    </div>`).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderDestinations();
+      renderWhy();
+      await renderTours(); // must finish (backend fetch) before initReveal() scans the DOM below
+      renderTestimonials();
+      initReveal();
+
+      // Ensure that if the page was opened with a hash like #about, we scroll to it after tours are inserted
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          showToast('Message sent', 'Thanks for reaching out — our travel team will be in touch soon.', 'success');
+          contactForm.reset();
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

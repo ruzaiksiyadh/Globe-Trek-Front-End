@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — GlobeTrek</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-visual">
+    <img src="images/misc/register-visual.jpg" alt="Traveler on a scenic cliff">
+    <div class="auth-visual-content">
+      <a href="index.html" class="nav-logo">Globe<span>Trek</span></a>
+      <h2 style="color:#fff; margin-bottom:10px;">Your journey starts here.</h2>
+      <p style="color:rgba(255,255,255,.75); max-width:380px;">Create your GlobeTrek account to book tours, track bookings and unlock exclusive adventures.</p>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <h2>Create My GlobeTrek Account</h2>
+      <p>Join thousands of travelers exploring the world with us.</p>
+      <form id="register-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" class="form-control" placeholder="Jane Traveler" required>
+          <div class="field-error">Please enter your full name.</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="you@email.com" required>
+          <div class="field-error">Please enter a valid email.</div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="+1 555 123 4567" required>
+          <div class="field-error">Please enter a valid phone number.</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="country">Country <span style="font-weight:400; color:#9aa8bd;">(optional)</span></label>
+            <input type="text" id="country" class="form-control" placeholder="United States">
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth <span style="font-weight:400; color:#9aa8bd;">(optional)</span></label>
+            <input type="date" id="dob" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="At least 8 characters" required>
+          <div class="field-error">Password must be at least 8 characters.</div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter password" required>
+          <div class="field-error">Passwords do not match.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-8" style="padding:16px;">Create My GlobeTrek Account</button>
+      </form>
+      <p class="mt-24" style="font-size:.85rem; text-align:center;">Already have an account? <a href="login.html" style="color:var(--sky-500); font-weight:600;">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async ()=>{
+  if(await currentUser()){ window.location.href = 'dashboard.html'; return; }
+
+  const form = document.getElementById('register-form');
+  const fields = {
+    fullName: document.getElementById('fullName'),
+    email: document.getElementById('email'),
+    phone: document.getElementById('phone'),
+    password: document.getElementById('password'),
+    confirmPassword: document.getElementById('confirmPassword')
+  };
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    Object.values(fields).forEach(f=>f.classList.remove('invalid'));
+    let valid = true;
+
+    if(!fields.fullName.value.trim()){ fields.fullName.classList.add('invalid'); valid=false; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value)){ fields.email.classList.add('invalid'); valid=false; }
+    if(!/^[0-9+\-\s()]{7,}$/.test(fields.phone.value)){ fields.phone.classList.add('invalid'); valid=false; }
+    if(fields.password.value.length < 8){ fields.password.classList.add('invalid'); valid=false; }
+    if(fields.confirmPassword.value !== fields.password.value || !fields.confirmPassword.value){ fields.confirmPassword.classList.add('invalid'); valid=false; }
+
+    if(!valid){
+      showToast('Check the form', 'Please fix the highlighted fields.', 'error');
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Creating account…';
+
+    const result = await registerUser({
+      fullName: fields.fullName.value.trim(),
+      email: fields.email.value.trim(),
+      phone: fields.phone.value.trim(),
+      password: fields.password.value,
+      country: document.getElementById('country').value.trim(),
+      dob: document.getElementById('dob').value
+    });
+
+    btn.disabled = false; btn.textContent = 'Create My GlobeTrek Account';
+
+    if(!result.ok){
+      showToast('Registration failed', result.error, 'error');
+      fields.email.classList.add('invalid');
+      return;
+    }
+    showToast('Welcome to GlobeTrek!', 'Your account has been created.', 'success');
+    setTimeout(()=>{ window.location.href = 'dashboard.html'; }, 700);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — GlobeTrek</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-visual">
+    <img src="images/misc/login-visual.jpg" alt="Mountain lake at sunrise">
+    <div class="auth-visual-content">
+      <a href="index.html" class="nav-logo">Globe<span>Trek</span></a>
+      <h2 style="color:#fff; margin-bottom:10px;">Welcome back, adventurer.</h2>
+      <p style="color:rgba(255,255,255,.75); max-width:380px;">Log in to manage your bookings and pick up your journey right where you left off.</p>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <h2>Login to GlobeTrek</h2>
+      <p>Enter your details to access your account.</p>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="you@email.com" required>
+          <div class="field-error">Please enter a valid email.</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+          <div class="field-error">Password is required.</div>
+        </div>
+        <div class="form-links mt-8" style="margin-bottom:20px;">
+          <label class="form-check"><input type="checkbox" id="remember"> Remember me</label>
+          <a href="#" id="forgot-link">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="padding:16px;">Login</button>
+        <a href="register.html" class="btn btn-outline btn-block mt-16">Create Account</a>
+      </form>
+      <p class="mt-24" style="font-size:.85rem; text-align:center;">Not you? <a href="admin-login.html" style="color:var(--sky-500); font-weight:600;">Admin Login →</a></p>
+      <div class="glass mt-24" style="padding:16px; background:#eef6fd; border:1px solid #dbeafe;">
+        <p style="font-size:.78rem; color:#3d4a63;"><strong>Demo tip:</strong> Register a new traveler account, or try the admin panel with <code>admin@globetrek.com</code> / <code>Admin@2026</code>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script>
+function getParam(name){ return new URLSearchParams(window.location.search).get(name); }
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+  if(await currentUser()){ window.location.href = 'dashboard.html'; return; }
+
+  document.getElementById('forgot-link').addEventListener('click', (e)=>{
+    e.preventDefault();
+    showToast('Check your email', 'If an account exists, a password reset link has been sent.', 'info');
+  });
+
+  const form = document.getElementById('login-form');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    let valid = true;
+    [email, password].forEach(f=>f.classList.remove('invalid'));
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){ email.classList.add('invalid'); valid=false; }
+    if(!password.value){ password.classList.add('invalid'); valid=false; }
+    if(!valid) return;
+
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Logging in…';
+    const result = await loginUser(email.value.trim(), password.value, 'Traveler');
+    btn.disabled = false; btn.textContent = 'Login';
+
+    if(!result.ok){
+      showToast('Login failed', result.error, 'error');
+      email.classList.add('invalid'); password.classList.add('invalid');
+      return;
+    }
+    showToast('Welcome back!', 'Redirecting to your dashboard…', 'success');
+    const tourId = getParam('tour');
+    setTimeout(()=>{ window.location.href = tourId ? `tour-details.html?id=${tourId}` : 'dashboard.html'; }, 700);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour Details — GlobeTrek</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app-navbar" data-home="index.html"></div>
+
+<main id="tour-root">
+  <!-- populated by JS -->
+</main>
+
+<div id="app-footer" data-home="index.html"></div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/booking.js"></script>
+<script>
+function getParam(name){ return new URLSearchParams(window.location.search).get(name); }
+
+async function renderTourDetails(){
+  const id = getParam('id');
+  let tour = id ? await getTourById(id) : null;
+  if(!tour){
+    const all = await getTours();
+    tour = all[0];
+  }
+  if(!tour){
+    document.getElementById('tour-root').innerHTML = `
+      <div class="section text-center" style="padding-top:160px;">
+        <h2>Tour not found</h2>
+        <p class="mt-16">Make sure the GlobeTrek backend is running, then try again.</p>
+        <a href="index.html" class="btn btn-primary mt-24">Back to Home</a>
+      </div>`;
+    return;
+  }
+  document.title = tour.name + ' — GlobeTrek';
+
+  const root = document.getElementById('tour-root');
+  root.innerHTML = `
+    <section class="hero" style="min-height:64vh;">
+      <img class="hero-media" src="${tour.img}" alt="${tour.name}"> <!-- TOUR HERO IMAGE HERE -->
+      <div class="hero-overlay"></div>
+      <div class="hero-content" style="max-width:720px;">
+        <div class="eyebrow">📍 ${tour.location}</div>
+        <h1>${tour.name}</h1>
+        <p>${tour.duration} · ★ ${tour.rating} rated experience</p>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="container details-grid" id="details-grid">
+        <div>
+          <div class="reveal">
+            <div class="eyebrow">Overview</div>
+            <h2 style="margin-bottom:18px;">About This Adventure</h2>
+            <p style="font-size:1.02rem;">${tour.description}</p>
+          </div>
+
+          <div class="reveal mt-40">
+            <h3 style="margin-bottom:18px;">Tour Itinerary</h3>
+            <div class="timeline" style="max-width:100%;">
+              ${(tour.itinerary || []).map(it=>`
+                <div class="timeline-item">
+                  <div class="timeline-year" style="color:var(--blue-600); font-size:1.1rem;">${it.day}</div>
+                  <p style="margin-top:6px;">${it.text}</p>
+                </div>`).join('')}
+            </div>
+          </div>
+
+          <div class="reveal mt-40 include-exclude-grid">
+            <div>
+              <h3 style="margin-bottom:14px; font-size:1.1rem;">✅ Included</h3>
+              <ul style="display:flex; flex-direction:column; gap:8px;">
+                ${(tour.included || []).map(i=>`<li style="font-size:.9rem; color:#3d4a63;">✔ ${i}</li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <h3 style="margin-bottom:14px; font-size:1.1rem;">🚫 Excluded</h3>
+              <ul style="display:flex; flex-direction:column; gap:8px;">
+                ${(tour.excluded || []).map(i=>`<li style="font-size:.9rem; color:#3d4a63;">✘ ${i}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <div class="reveal mt-40">
+            <h3 style="margin-bottom:18px;">Gallery</h3>
+            <div class="grid grid-3">
+              ${(tour.gallery || []).map(g=>`<img src="${g}" style="border-radius:16px; height:180px; width:100%; object-fit:cover;" alt="${tour.name} gallery"> <!-- TOUR GALLERY IMAGES HERE -->`).join('')}
+            </div>
+          </div>
+
+          <div class="reveal mt-40">
+            <h3 style="margin-bottom:18px;">Traveler Reviews</h3>
+            <div class="grid grid-2">
+              ${(tour.reviews || []).map(r=>`
+                <div class="glass" style="background:#fff; border:1px solid #e4eef8; padding:22px;">
+                  <div style="color:#ffc857; margin-bottom:8px;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                  <p style="font-style:italic; font-size:.92rem;">"${r.text}"</p>
+                  <div style="font-weight:700; margin-top:10px; font-size:.9rem;">${r.name}</div>
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <aside class="glass reveal tour-sidebar" style="padding:30px; background:#fff; border:1px solid #e4eef8;">
+          <div style="font-size:.8rem; color:#5a6a85; text-transform:uppercase; letter-spacing:.04em;">Price per person</div>
+          <div style="font-family:var(--font-display); font-size:2.4rem; font-weight:800; color:var(--blue-600); margin-bottom:16px;">${fmtMoney(tour.price)}</div>
+          <div class="price-line" style="border-color:#e4eef8; color:#3d4a63;"><span>Duration</span><span>${tour.duration}</span></div>
+          <div class="price-line" style="border-color:#e4eef8; color:#3d4a63;"><span>Rating</span><span>★ ${tour.rating}</span></div>
+          <div class="price-line" style="border-color:#e4eef8; color:#3d4a63;"><span>Available Dates</span><span style="text-align:right;">${(tour.dates || []).join(', ')}</span></div>
+          <button class="btn btn-primary btn-block mt-24" style="padding:18px;" onclick="openBookingModal('${tour.id}')">Book This Adventure</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-cta">
+      <div class="container text-center reveal on-dark">
+        <h2 style="margin-bottom:16px;">Ready for ${tour.name}?</h2>
+        <p style="max-width:480px; margin:0 auto 30px;">Secure your spot today — your adventure is one booking away.</p>
+        <button class="btn btn-primary" onclick="openBookingModal('${tour.id}')">Book This Adventure</button>
+      </div>
+    </section>
+  `;
+  initReveal();
+}
+
+document.addEventListener('DOMContentLoaded', renderTourDetails);
+</script>
+</body>
+</html>
